@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">API Post</string>
+    <string name="key_secret">testkey@2022</string>
+</resources>
