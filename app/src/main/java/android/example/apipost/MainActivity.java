@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables for our edittext, button
     EditText nameText, emailText;
-    Button saveButton, nextButton;
+    Button saveButton, nextButton, volleyButton;
 
     TextView textView;
 
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         emailText = findViewById(R.id.email);
         saveButton = findViewById(R.id.save);
         nextButton = findViewById(R.id.next);
+        volleyButton = findViewById(R.id.volley);
         textView = findViewById(R.id.textView);
 
 
@@ -54,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ReqresActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        volleyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, VolleyActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 //              createPost(nameText.getText().toString(), emailText.getText().toString());
 
               postString(nameText.getText().toString(), emailText.getText().toString());
+ //             postString();
           }
       });
 
@@ -93,9 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void createPost(String name, String email) {
-
-
-        String key_secret = "testkey@2022";
 
         // Passing data from our text fields to our model class.
         Post post = new Post(name, email);
@@ -142,11 +152,6 @@ public class MainActivity extends AppCompatActivity {
     private void postString(String name, String email) {
 
 
-        String key_secret = "testkey@2022";
-
-        // Passing data from our text fields to our model class.
-        String post = "Name: " + name +" Email: "+ email+ key_secret;
-
         // Method to create a post and passing our model class.
         Call<String> call = jsonPlaceholder.postString(name, email);
 
@@ -154,14 +159,14 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Log.d("Successful ", "In postString");
+                    Log.d("Successful ", "In postString "+ response);
 
                     // Setting both of the edit text empty.
-
                     nameText.setText("");
                     emailText.setText("");
 
-                    String responseString = response.body().toString();
+                    String responseString = response.body();
+
                     textView.setText(responseString);
                 }
 
@@ -175,6 +180,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
 }

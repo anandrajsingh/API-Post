@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.APIPost">
         <activity
+            android:name=".ImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VolleyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReqresActivity"
             android:exported="false" />
         <activity

@@ -19,7 +19,7 @@ public interface JSONPlaceholder {
 
     @FormUrlEncoded
     @PUT("test_json_query")
-    Call<String> postString(@Field("@") String name, @Field("@") String email);
+    Call<String> postString(@Field("name") String name, @Field("email") String email);
 
 
 }
